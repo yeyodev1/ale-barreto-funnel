@@ -28,6 +28,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      alias: '/registro-vsl-tr',
       name: 'funnel',
       component: FunnelView,
       beforeEnter: () => {
