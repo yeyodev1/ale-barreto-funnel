@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import CalendarModal from '@/components/CalendarModal.vue'
+import { trackStage } from '@/utils/ghl'
 
 // ── Calendar modal ────────────────────────────────────────────────────────────
 const calendarOpen = ref(false)
@@ -26,20 +27,23 @@ const submitCapture = async () => {
   captureTouched.value = { nombre: true, email: true, phone: true }
   if (!validateCapture()) return
   captureSubmitting.value = true
-  localStorage.setItem('bk_contact', JSON.stringify({
+  const contact = {
     nombre: captureForm.value.nombre.trim(),
     email: captureForm.value.email.trim().toLowerCase(),
     phone: captureForm.value.phone.trim(),
     timestamp: Date.now(),
-  }))
+  }
+  localStorage.setItem('bk_contact', JSON.stringify(contact))
+  trackStage('lead_capturado', { nombre: contact.nombre, email: contact.email, phone: contact.phone })
   await new Promise(r => setTimeout(r, 600))
   captureSubmitting.value = false
   captureOpen.value = false
   startTimer()
 }
 
-// ── 2-minute countdown ────────────────────────────────────────────────────────
-const COUNTDOWN_SECONDS = 120
+// ── 2-minute countdown (3 s en localhost para testing) ───────────────────────
+const IS_DEV = window.location.hostname === 'localhost'
+const COUNTDOWN_SECONDS = IS_DEV ? 3 : 120
 const secondsLeft = ref(COUNTDOWN_SECONDS)
 const ctaUnlocked = ref(false)
 let timer: ReturnType<typeof setInterval> | null = null
@@ -60,8 +64,6 @@ const startTimer = () => {
     }
   }, 1000)
 }
-
-const IS_DEV = window.location.hostname === 'localhost'
 
 onMounted(() => {
   const stored = localStorage.getItem('bk_contact')

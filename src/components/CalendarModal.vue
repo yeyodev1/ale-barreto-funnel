@@ -22,6 +22,8 @@ const isValid = () =>
   !!form.value.objetivo &&
   form.value.consent
 
+const IS_DEV = window.location.hostname === 'localhost'
+
 const qualifies = () => {
   if (form.value.facturacion === '<10k') return false
   if (form.value.objetivo === 'viral') return false
@@ -48,7 +50,7 @@ const handleSubmit = async () => {
   if (qualifies()) {
     router.push('/agendar')
   } else {
-    localStorage.setItem('bk_disq_at', String(Date.now()))
+    if (!IS_DEV) localStorage.setItem('bk_disq_at', String(Date.now()))
     router.push('/sin-espacio')
   }
 }
