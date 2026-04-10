@@ -151,11 +151,13 @@ const handleSubmit = async () => {
     timestamp: new Date().toISOString(),
   }
 
-  // Log para debug / wiring con Resend/GHL
   console.info('[Bakano Registro]', payload)
 
-  // Simular envío (aquí conectas Resend / GHL webhook)
-  await new Promise(r => setTimeout(r, 900))
+  await fetch('https://services.leadconnectorhq.com/hooks/pEFChujwCCaMWBNbZYD1/webhook-trigger/acf01034-9790-4a8f-a765-dfe9ae157e2d', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(() => {})
 
   submitting.value = false
   localStorage.setItem('bk_contact', JSON.stringify({

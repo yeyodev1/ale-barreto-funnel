@@ -35,16 +35,37 @@ const handleSubmit = async () => {
   if (!isValid()) return
   submitting.value = true
 
+  const contact = (() => { try { return JSON.parse(localStorage.getItem('bk_contact') ?? '{}') } catch { return {} } })()
+  const califica = qualifies()
+
+  const etiquetas = [
+    'funnel-bakano',
+    'step-2-cualificacion',
+    califica ? 'califica' : 'no-califica',
+    `facturacion-${form.value.facturacion.replace(/[<>]/g, '')}`,
+    `ubicacion-${form.value.ubicacion}`,
+    `objetivo-${form.value.objetivo}`,
+  ]
+
   const payload = {
     nombre: props.nombre,
+    email: contact.email ?? '',
+    telefono: contact.phone ?? '',
     facturacion: form.value.facturacion,
     ubicacion: form.value.ubicacion,
     objetivo: form.value.objetivo,
+    califica,
+    resultado: califica ? 'AGENDA' : 'RECHAZADO',
+    etiquetas,
     timestamp: new Date().toISOString(),
   }
   console.info('[Bakano Agenda]', payload)
 
-  await new Promise(r => setTimeout(r, 900))
+  await fetch('https://services.leadconnectorhq.com/hooks/pEFChujwCCaMWBNbZYD1/webhook-trigger/69dc0e5f-e2c0-4e9f-9625-10a708787d59', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(() => {})
   submitting.value = false
   emit('close')
   if (qualifies()) {
