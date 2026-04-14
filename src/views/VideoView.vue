@@ -4,6 +4,7 @@ import CalendarModal from '@/components/CalendarModal.vue'
 import { trackStage, generateEventId } from '@/utils/ghl'
 import { useContactStore } from '@/stores/contact'
 import osLogo from '@/assets/logos/logo-small.png'
+import robertoPhoto from '@/assets/team/image.png'
 
 const contactStore = useContactStore()
 
@@ -184,6 +185,33 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
           100% gratuito &nbsp;·&nbsp; Sin compromiso &nbsp;·&nbsp; Cupos limitados
         </p>
       </div>
+
+      <!-- Authority section -->
+      <section class="vv-authority" aria-labelledby="authority-heading">
+        <div class="vv-authority__inner">
+          <div class="vv-authority__photo-wrap">
+            <div class="vv-authority__avatar" aria-hidden="true">
+              <img :src="robertoPhoto" alt="Roberto Allú" class="vv-authority__img" />
+            </div>
+          </div>
+          <div class="vv-authority__content">
+            <p class="vv-authority__eyebrow">Tu especialista asignado</p>
+            <h2 id="authority-heading" class="vv-authority__name">Roberto Allú</h2>
+            <p class="vv-authority__role">Especialista en Soluciones Náuticas Industriales</p>
+            <p class="vv-authority__bio">
+              Como representantes oficiales de Honda Marine en Ecuador, llevo años ayudando
+              a operadores camaroneros, de transporte y seguridad a profesionalizar sus flotas.
+              No se trata de vender un motor — se trata de que
+              <strong>tus embarcaciones arranquen mañana</strong>, y todos los días.
+            </p>
+            <ul class="vv-authority__creds" role="list">
+              <li><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Representante oficial Honda Marine Ecuador</li>
+              <li><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Especialista en flotas camaroneras y de seguridad</li>
+              <li><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Asesoría llave en mano: motor + equipamiento</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
     </main>
 
@@ -458,6 +486,87 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
   color: #B0C0D5;
   margin: 0;
   i { font-size: 0.7rem; }
+}
+
+// ── Authority ────────────────────────────────────────────────────────────────
+.vv-authority {
+  margin-top: 3.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #F5F8FF 0%, #ffffff 100%);
+  border: 1px solid #E4EDF7;
+  border-radius: 20px;
+}
+
+.vv-authority__inner {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  @media (max-width: 580px) { flex-direction: column; align-items: center; text-align: center; }
+}
+
+.vv-authority__avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 63, 125, 0.15);
+  overflow: hidden;
+  background: colors.$OS-NAVY;
+}
+
+.vv-authority__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vv-authority__eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: colors.$OS-BLUE;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.25rem;
+}
+
+.vv-authority__name {
+  @include fonts.heading-font(800);
+  font-size: 1.5rem;
+  color: colors.$OS-DARK;
+  margin: 0 0 0.1rem;
+}
+
+.vv-authority__role {
+  font-size: 0.8rem;
+  color: #8A9BB5;
+  margin: 0 0 1rem;
+}
+
+.vv-authority__bio {
+  font-size: 0.88rem;
+  color: #3A4F6A;
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+  strong { color: colors.$OS-DARK; }
+}
+
+.vv-authority__creds {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: #4A5F7A;
+    i { color: colors.$OS-BLUE; font-size: 0.75rem; }
+    @media (max-width: 580px) { justify-content: center; }
+  }
 }
 
 // ── Footer ───────────────────────────────────────────────────────────────────
