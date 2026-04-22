@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import osLogo from '@/assets/logos/logo-small.png'
 
 const hoursLeft = ref(0)
 

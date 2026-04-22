@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import osLogo from '@/assets/logos/logo-small.png'
 
 const router = useRouter()
 const iframeHeight = ref(1100)
 
-// TODO: Actualizar URL del calendario Ale Barreto en GHL
-const BASE_URL = 'https://api.leadconnectorhq.com/widget/booking/dtpY2GCQjoOkpm8JUtYz'
+// GHL Ale Barreto Calendar URL
+const BASE_URL = 'https://api.leadconnectorhq.com/widget/booking/nCzBqHMNFYGu4rYBREX3'
 
 const calendarUrl = computed(() => {
   try {
@@ -35,7 +34,19 @@ const onMessage = (event: MessageEvent) => {
   }
 }
 
-onMounted(() => window.addEventListener('message', onMessage))
+onMounted(() => {
+  window.addEventListener('message', onMessage)
+  
+  // Inject GHL form embed script for better iframe handling
+  if (!document.getElementById('ghl-form-embed-script')) {
+    const script = document.createElement('script')
+    script.id = 'ghl-form-embed-script'
+    script.src = 'https://api.leadconnectorhq.com/js/form_embed.js'
+    script.type = 'text/javascript'
+    document.body.appendChild(script)
+  }
+})
+
 onUnmounted(() => window.removeEventListener('message', onMessage))
 </script>
 
@@ -90,6 +101,7 @@ onUnmounted(() => window.removeEventListener('message', onMessage))
           class="calendar__iframe"
           frameborder="0"
           scrolling="no"
+          id="nCzBqHMNFYGu4rYBREX3_1776870418706"
         ></iframe>
       </div>
 

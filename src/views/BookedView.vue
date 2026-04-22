@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import osLogo from '@/assets/logos/logo-small.png'
 
 // ── Contact name from localStorage ───────────────────────────────────────────
 const contactName = computed(() => {
@@ -105,8 +104,7 @@ const nextSteps = [
       <!-- Disclaimer -->
       <p class="booked__disclaimer">
         <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-        Los resultados mencionados en el video corresponden a casos reales de clientes. Los resultados individuales
-        dependen del tipo de operación, flota y condiciones de uso.
+        Los resultados mencionados en el video corresponden a casos reales. Cada proyecto de diseño y construcción es único y los resultados dependen de las especificaciones y materiales seleccionados.
       </p>
 
     </main>

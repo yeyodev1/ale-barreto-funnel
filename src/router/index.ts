@@ -154,4 +154,22 @@ router.afterEach((to) => {
   setCanonical(meta.canonical ?? '')
 })
 
+// ── Router Guards ──────────────────────────────────────────────────────────────
+router.beforeEach((to, from, next) => {
+  const isBooked = !!localStorage.getItem('os_booked_at')
+  const isDisqualified = !!localStorage.getItem('os_disq_at')
+
+  // Si ya agendó, siempre a la confirmación (excepto legales)
+  if (isBooked && !['booked', 'privacy-policy', 'legal-notice'].includes(to.name as string)) {
+    return next({ name: 'booked' })
+  }
+
+  // Si está descalificado, no puede ir a agendar ni a confirmación
+  if (isDisqualified && ['booking', 'booked'].includes(to.name as string)) {
+    return next({ name: 'no-space' })
+  }
+
+  next()
+})
+
 export default router

@@ -3,8 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import CalendarModal from '@/components/CalendarModal.vue'
 import { trackStage, generateEventId } from '@/utils/ghl'
 import { useContactStore } from '@/stores/contact'
-import osLogo from '@/assets/logos/logo-small.png'
-import robertoPhoto from '@/assets/team/image.png'
+import alePhoto from '@/assets/team/ale-barreto.png'
 
 const contactStore = useContactStore()
 
@@ -84,23 +83,6 @@ const startTimer = () => {
 }
 
 onMounted(() => {
-  // Load Wistia Scripts
-  if (!document.getElementById('wistia-player-js')) {
-    const s1 = document.createElement('script')
-    s1.id = 'wistia-player-js'
-    s1.src = 'https://fast.wistia.com/player.js'
-    s1.async = true
-    document.head.appendChild(s1)
-  }
-  if (!document.getElementById('wistia-embed-js')) {
-    const s2 = document.createElement('script')
-    s2.id = 'wistia-embed-js'
-    s2.src = 'https://fast.wistia.com/embed/5ql8l131me.js'
-    s2.async = true
-    s2.type = 'module'
-    document.head.appendChild(s2)
-  }
-
   const c = contactStore.get()
   const hasContact = !!c.email && !!c.nombre
   if (!IS_DEV && !hasContact) {
@@ -191,11 +173,11 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
         <div class="vv-authority__inner">
           <div class="vv-authority__photo-wrap">
             <div class="vv-authority__avatar" aria-hidden="true">
-              <img :src="robertoPhoto" alt="Ale Barreto" class="vv-authority__img" />
+              <img :src="alePhoto" alt="Ale Barreto" class="vv-authority__img" />
             </div>
           </div>
           <div class="vv-authority__content">
-            <p class="vv-authority__eyebrow">Tu especialista asignado</p>
+            <p class="vv-authority__eyebrow">Tu especialista asignada</p>
             <h2 id="authority-heading" class="vv-authority__name">Ale Barreto</h2>
             <p class="vv-authority__role">Experta en Diseño y Construcción en Madera</p>
             <p class="vv-authority__bio">
@@ -244,12 +226,12 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
             <div class="capture-row">
               <div class="capture-field" :class="{ error: captureTouched.nombre && captureErrors.nombre }">
                 <label>Nombre</label>
-                <input v-model="captureForm.nombre" type="text" placeholder="Roberto" @blur="captureTouched.nombre = true" />
+                <input v-model="captureForm.nombre" type="text" placeholder="Ej: Juan" @blur="captureTouched.nombre = true" />
                 <span v-if="captureTouched.nombre && captureErrors.nombre" class="capture-field__error">{{ captureErrors.nombre }}</span>
               </div>
               <div class="capture-field" :class="{ error: captureTouched.apellido && captureErrors.apellido }">
                 <label>Apellido</label>
-                <input v-model="captureForm.apellido" type="text" placeholder="Allú" @blur="captureTouched.apellido = true" />
+                <input v-model="captureForm.apellido" type="text" placeholder="Ej: Pérez" @blur="captureTouched.apellido = true" />
                 <span v-if="captureTouched.apellido && captureErrors.apellido" class="capture-field__error">{{ captureErrors.apellido }}</span>
               </div>
             </div>
@@ -260,7 +242,7 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
             </div>
             <div class="capture-field" :class="{ error: captureTouched.email && captureErrors.email }">
               <label>Email</label>
-              <input v-model="captureForm.email" type="email" placeholder="tu@empresa.com" @blur="captureTouched.email = true" />
+              <input v-model="captureForm.email" type="email" placeholder="tu@email.com" @blur="captureTouched.email = true" />
               <span v-if="captureTouched.email && captureErrors.email" class="capture-field__error">{{ captureErrors.email }}</span>
             </div>
             <div class="capture-field" :class="{ error: captureTouched.telefono && captureErrors.telefono }">
@@ -308,7 +290,14 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
   z-index: 100;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
 
-  &__logo { height: 36px; width: auto; object-fit: contain; }
+  &__logo-text {
+    font-family: fonts.$font-principal;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    color: colors.$OS-NAVY;
+    margin: 0;
+  }
 }
 
 .vv-main {
@@ -628,10 +617,12 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
     border-bottom: 1px solid #E8EDF5;
   }
 
-  &__logo {
-    height: 32px;
-    width: auto;
-    object-fit: contain;
+  &__logo-text {
+    font-family: fonts.$font-principal;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    color: colors.$OS-NAVY;
     margin-bottom: 1rem;
   }
 

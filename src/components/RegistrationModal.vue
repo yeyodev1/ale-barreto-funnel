@@ -87,7 +87,7 @@ const validators: Record<string, (v: string) => string | null> = {
   apellido: v => v.trim().length < 2 ? 'Ingresa tu apellido' : null,
   email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? null : 'Email inválido',
   phone: () => phoneValid.value ? null : 'Número inválido para el país seleccionado',
-  empresa: v => v.trim().length < 2 ? 'Ingresa el nombre de tu empresa' : null,
+  empresa: v => v.trim().length < 2 ? 'Ingresa el nombre de tu proyecto' : null,
 }
 
 const validate = () => {
@@ -159,7 +159,7 @@ const handleSubmit = async () => {
 
   console.info('[AleBarreto Registro]', payload)
 
-  await fetch('https://services.leadconnectorhq.com/hooks/nSvINWsG3QGCGfcdpPdu/webhook-trigger/VwBt884DE0WtwQRVMzp9', {
+  await fetch(import.meta.env.VITE_WEBHOOK_REGISTRO, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

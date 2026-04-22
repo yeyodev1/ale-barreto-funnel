@@ -3,9 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import RegistrationModal from '@/components/RegistrationModal.vue'
 import { captureFbParams } from '@/utils/fbclid'
-import osLogo from '@/assets/logos/logo-small.png'
-import videoPlaceholder from '@/assets/stock/video.png'
-import robertoPhoto from '@/assets/team/image.png'
+import alePhoto from '@/assets/team/ale-barreto.png'
 
 const router = useRouter()
 const modalOpen = ref(false)
@@ -134,27 +132,8 @@ onUnmounted(() => clearInterval(interval))
 
         <!-- VSL clickable area -->
         <div class="funnel__vsl-wrap">
-          <div
-            class="funnel__vsl"
-            role="button"
-            tabindex="0"
-            aria-label="Ver video y solicitar presupuesto"
-            @click="openModal()"
-            @keydown.enter="openModal()"
-            @keydown.space.prevent="openModal()"
-          >
-            <div class="funnel__vsl-bg" aria-hidden="true">
-              <img :src="videoPlaceholder" alt="" class="funnel__vsl-thumb" />
-              <div class="funnel__vsl-blur-overlay"></div>
-            </div>
-            <div class="funnel__vsl-overlay" aria-hidden="true">
-              <div class="funnel__vsl-play">
-                <i class="fa-solid fa-play"></i>
-              </div>
-              <p class="funnel__vsl-caption">
-                Descubre cómo transformamos espacios comunes en ambientes de lujo
-              </p>
-            </div>
+          <div class="funnel__vsl-player-container">
+            <wistia-player media-id="5ql8l131me" aspect="1.7777777777777777"></wistia-player>
           </div>
         </div>
 
@@ -265,16 +244,16 @@ onUnmounted(() => clearInterval(interval))
       </div>
     </section>
 
-    <!-- AUTHORITY — Roberto Allú -->
+    <!-- AUTHORITY — Ale Barreto -->
     <section class="funnel__authority" aria-labelledby="authority-heading">
       <div class="funnel__container funnel__authority-inner">
         <div class="funnel__authority-photo-wrap">
           <div class="funnel__authority-avatar" aria-hidden="true">
-            <img :src="robertoPhoto" alt="Ale Barreto" class="funnel__authority-img" />
+            <img :src="alePhoto" alt="Ale Barreto" class="funnel__authority-img" />
           </div>
         </div>
         <div class="funnel__authority-content">
-          <p class="funnel__authority-eyebrow">Tu especialista asignado</p>
+          <p class="funnel__authority-eyebrow">Tu especialista asignada</p>
           <h2 id="authority-heading" class="funnel__authority-name">Ale Barreto</h2>
           <p class="funnel__authority-role">Experta en Diseño y Construcción en Madera</p>
           <p class="funnel__authority-bio">
@@ -447,6 +426,20 @@ onUnmounted(() => clearInterval(interval))
   letter-spacing: -0.025em;
 
   &-accent { color: colors.$OS-RED; }
+}
+
+.funnel__vsl-player-container {
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(colors.$AB-WOOD, 0.2);
+  box-shadow: 0 40px 100px -20px rgba(0,0,0,0.4);
+  background: #000;
+  line-height: 0;
+
+  @media (max-width: 768px) {
+    border-radius: 12px;
+  }
 }
 
 .funnel__pillars {

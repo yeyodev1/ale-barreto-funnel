@@ -117,7 +117,7 @@ ${califica ? '✅ CALIFICA' : '❌ NO CALIFICA'}
   trackStage('cualificacion_completada', payload)
 
   // TODO: Actualizar webhook URL para Ale Barreto
-  await fetch('https://services.leadconnectorhq.com/hooks/nSvINWsG3QGCGfcdpPdu/webhook-trigger/Dgr46VPmCNAtluiaBEQS', {
+  await fetch(import.meta.env.VITE_WEBHOOK_CALIFICACION, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
